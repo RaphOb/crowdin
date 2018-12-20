@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SourceRepository")
@@ -29,10 +30,30 @@ class Source
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Projet", inversedBy="source")
-     * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull()
      */
-    private $source;
+    private $projet;
+
+    /**
+     * Constructor
+     * @param Projet $projet
+     */
+    public function __construct(Projet $projet = NULL)
+    {
+        $this->projet = $projet;
+    }
+
+    /**
+     * @param Projet $projet
+     * 
+     * @return Source
+     */
+    public function setProjet(Projet $projet)
+    {
+        $this->projet = $projet;
+        return $this;
+    }
 
     public function getId(): ?int
     {

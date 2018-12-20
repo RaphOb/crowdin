@@ -6,6 +6,7 @@ use App\Entity\Projet;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProjetType extends AbstractType
 {
@@ -15,6 +16,7 @@ class ProjetType extends AbstractType
             ->add('Name')
             ->add('User_name')
             ->add('Langue')
+            
         ;
     }
 

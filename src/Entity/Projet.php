@@ -34,7 +34,7 @@ class Projet
     private $Langue;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Source", mappedBy="source")
+     * @ORM\OneToMany(targetEntity="App\Entity\Source", mappedBy="source", cascade="all", orphanRemoval=true)
      * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
      */
     private $source;
@@ -97,7 +97,7 @@ class Projet
     {
         if (!$this->source->contains($source)) {
             $this->source[] = $source;
-            $source->setSource($this);
+            $source->setProjet($this);
         }
 
         return $this;
