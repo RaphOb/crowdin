@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+<style>
+    .contain2 {
+        height: 200px;
+    }
+    .contain3 {
+        height: 300px;
+        text-align: center;
+    }
+    .imgcont {
+        height: 400px;
+        background-image : url("../../images/backimage.jpg");
+    }
+    .verticalbar {
+        border-right: 1px solid black;
+        margin: auto;
+
+    }
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello Crowdin</h1>
+
+   
+</div>
+<div class="contain2">
+<h2> Bienvenue sur votre platforme de traduction collaborative!</h2>
+<h3> Comment ça fonctionne?</h3>
+</div>
+<div class="imgcont"></div>
+<div class="contain3">
+    <div class="row">
+        <div class="col-md-6" style="height: 300px; margin-top: 30px; border-right: 3px solid black; border-radius: 3px; margin-bot: 30px;">
+        <h3>Vous ete traducteurs?</h3>
+            <ul>
+                <li>Text</li>
+                <li>text2</li>
+                <li>text3</li>
+            </ul>
+        </div>
+        <div class="col-md-6" style="height: 300px; margin-top: 30px; margin-bot: 30px;">
+            <h3>Vous etes developpeur?</h3>
+            <ul>
+                <li>Text</li>
+                <li>text2</li>
+                <li>text3</li>
+            </ul>
+        
+        </div> 
+    </div>
+        <div class="verticalbar"></div>
+</div>
+<div class="imgcont" style="height: 500px; margin-top:50px;"></div>
+<div class="contain4">
+
+</div>
+{% endblock %}

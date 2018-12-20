@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% form_theme form_edit 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+<div class="form" >
+ {{ form_start(form_edit) }}
+        {{ form_row(form_edit.Name) }}
+        {{ form_row(form_edit.User_name) }}
+        {{ form_row(form_edit.Langue) }}
+     <button type="submit">Edit Projet!</button>     
+         {{ form_end(form_edit) }}
+</div>
+{% endblock %}

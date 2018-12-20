@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gerer les projets!{% endblock %}
+
+{% block body %}
+<style>
+    
+</style>
+
+<div class="container mt-4">
+    <h1> gerer les projets</h1>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th> Titre</th>
+        <th>Langue Principale</th>
+        <th>Createur</th>
+        <th> Action</th>
+    </tr>
+    </thead>
+    <tbody>
+  {% for projet in projets %}
+  <tr>
+  <td> <a href="{{ path('projet_source', {'id': projet.id}) }}"> {{ projet.Name()}}</a></td>
+  <td> {{projet.Langue}} </td>
+  <td> {{ projet.getUserName() }} </td>
+  <td> <a href="{{ path('projet_edit', {'id': projet.id}) }}" class="btn btn-primary">Edit</a></td>
+  <td> <a href="{{ path('projet_del', {'id': projet.id}) }}" class="btn btn-danger" onCLick="return confirm('are you sure?')">Delet</a></td>
+  
+  </tr>
+  {% endfor %}
+    </body>
+</table>
+<div style="float:right">
+    <a href="{{ path('projet') }}" class="btn btn-success">Créer un projet</a>
+</div>
+    
+</div>
+{% endblock %}
