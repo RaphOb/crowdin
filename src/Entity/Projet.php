@@ -34,10 +34,10 @@ class Projet
     private $Langue;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Source", mappedBy="source", cascade="all", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Source", mappedBy="projet", cascade="all", orphanRemoval=true)
      * @ORM\JoinColumn(name="source_id", referencedColumnName="id")
      */
-    private $source;
+    protected $source;
 
     public function __construct()
     {
@@ -95,7 +95,7 @@ class Projet
 
     public function addSource(Source $source): self
     {
-        if (!$this->source->contains($source)) {
+       
             $this->source[] = $source;
             $source->setProjet($this);
         return $this;

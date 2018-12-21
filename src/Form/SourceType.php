@@ -14,7 +14,7 @@ class SourceType extends AbstractType
         $builder
             ->add('title')
             ->add('sourcefield')
-           // ->add('source')
+            ->add('source')
         ;
     }
 

@@ -33,7 +33,7 @@ class Source
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotNull()
      */
-    private $projet;
+    protected $projet;
 
     /**
      * Constructor
@@ -54,6 +54,7 @@ class Source
         $this->projet = $projet;
         return $this;
     }
+    
 
     public function getId(): ?int
     {
