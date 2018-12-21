@@ -98,8 +98,6 @@ class Projet
         if (!$this->source->contains($source)) {
             $this->source[] = $source;
             $source->setProjet($this);
-        }
-
         return $this;
     }
 
