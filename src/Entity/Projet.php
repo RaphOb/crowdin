@@ -93,11 +93,15 @@ class Projet
         return $this->source;
     }
 
+
+
     public function addSource(Source $source): self
     {
        
-            $this->source[] = $source;
+        if ($this->sources->contains($source)) {
+            $this->sources[] = $source;
             $source->setProjet($this);
+        }
         return $this;
     }
 

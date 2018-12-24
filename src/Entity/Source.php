@@ -35,14 +35,7 @@ class Source
      */
     protected $projet;
 
-    /**
-     * Constructor
-     * @param Projet $projet
-     */
-    public function __construct(Projet $projet = NULL)
-    {
-        $this->projet = $projet;
-    }
+
 
     /**
      * @param Projet $projet

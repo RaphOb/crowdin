@@ -12,9 +12,9 @@ class SourceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('sourcefield')
-            ->add('source')
+        ->add('title')
+        ->add('sourcefield')
+        //->add('source')
         ;
     }
 

@@ -131,11 +131,12 @@ class ProjetController extends AbstractController
     public function addSource($id, Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        //$projet = $entityManager->getRepository(Projet::class)->find($id);
+        $projet = $entityManager->getRepository(Projet::class)->find($id);
         $source = new Source();
         $form_source_create = $this->createForm(SourceType::class, $source);
         $form_source_create->handleRequest($request);
         if($form_source_create->isSubmitted() && $form_source_create->isValid()) {
+            $projet->setSource($source);
             $this->entityManager->persist($source);
             $this->entityManager->flush();
             return $this->redirectToRoute('home');
