@@ -98,8 +98,8 @@ class Projet
     public function addSource(Source $source): self
     {
        
-        if ($this->sources->contains($source)) {
-            $this->sources[] = $source;
+        if (!$this->source->contains($source)) {
+            $this->source[] = $source;
             $source->setProjet($this);
         }
         return $this;
