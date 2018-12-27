@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{# templates/registration/register.html.twig #}
+{% block title %}Regist'in!{% endblock %}
+{% block stylesheets %}
+<head>
+    <style type="text/css">
+    body{
+        background-color :Gainsboro;
+         
+    }
+    .container{
+        background-color :white;
+        margin-top: 100px;
+        height: 550px;
+        width: 500px;
+        border : 2px solid;
+        border-color: aqua;
+        border-radius: 10px;
+         box-shadow: 
+        0 0 1px rgba(0, 0, 0, 0.3), 
+        0 3px 7px rgba(0, 0, 0, 0.3), 
+        inset 0 1px rgba(255,255,255,1),
+        inset 0 -3px 2px rgba(0,0,0,0.25);
+    }
+    input{
+        margin:10px;
+        
+    }
+    button{
+        float:right;
+    }
+    </style>
+</head>
+{% endblock %}
+{% block body %}
+<div class="container">
+<h2 class="h2" style="text-align:center;"> Upload file !</h2>
+    {{ form_start(form) }}
+        {{ form_row(form.file, {'label': 'Witch file :', 
+            'attr': {'placeholder':'File ...' }} ) 
+        }}
+        {{ form_row(form.language, {'label': 
+        'Language of file :'}) }}
+        <br>
+        <button type="submit">Register!</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
