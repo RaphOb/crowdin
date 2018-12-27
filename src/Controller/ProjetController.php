@@ -132,20 +132,67 @@ class ProjetController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $source = new Source();
-       // $projet = new Projet();
+        //$projet = new Projet();
         $projet = $entityManager->getRepository(Projet::class)->find($id);
         $form_source_create = $this->createForm(SourceType::class, $source);
         $form_source_create->handleRequest($request);
-        $projet->addSource($source);
+        
         if($form_source_create->isSubmitted() && $form_source_create->isValid()) {
-            
+            $projet->addSource($source);
             $this->entityManager->persist($source);
             $this->entityManager->persist($projet);
             $this->entityManager->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('source_all', array('id'=>$projet->getId()));
         }
         return $this->render('source/createS.html.twig', [
-            'form_source_create'=> $form_source_create->createView()
+            'form_source_create'=> $form_source_create->createView(),
+            'sources'=>$source,
+            
         ]);
     }
+
+    /**
+     * @Route("/source/{id}/sourcetall/", name="source_all")
+     *@param $projet
+     */ 
+    public function viewsource($id)
+    {
+
+        $projet = $this->getDoctrine()
+        ->getRepository(Projet::class)
+        ->find($id);
+
+        $source=$projet->getSource();
+      
+
+        return $this->render('/source/sources.html.twig',
+        [ 'projets'=> $projet]
+    );
+    }
+
+    /**
+     * @route("/source/{id}/{sId}/sourcedel/", name="source_del")
+     * @param $projet
+     * @param $source
+     */
+    public function delSource($id, $sId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $projet = $this->getDoctrine()
+        ->getRepository(Projet::class)
+        ->find($id);
+
+        $source = $this->getDoctrine()
+        ->getRepository(Source::class)
+        ->find($sId);
+
+        
+        if (!$source) {
+            throw $this->createNotFoundException('source not found');
+        }
+        $projet->removeSource($source);
+        $this->entityManager->flush();
+        return $this->redirectToRoute('source_all', array('id'=>$projet->getId()));
+    }
+
 }

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Gerer les Sources{% endblock %}
+
+{% block body %}
+<style>
+    
+</style>
+<div class="container mt-4">
+    <h1> gerer les sources</h1>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th> Titre</th>
+        <th>Source</th>
+       
+    </tr>
+    </thead>
+    <tbody>
+  {% for source in projets.source %}
+  <tr>
+  <td> source</td>
+  <td> {{source.title}} </td>
+  <td> {{ source.sourcefield }}</td>
+  <td> <a href="#" class="btn btn-primary">Traduire</a></td>
+  <td> <a href="{{ path('source_del', {'id': projets.id, 'sId': source.id}) }}" class="btn btn-danger" onCLick="return confirm('are you sure?')">Delet</a></td>
+  
+  </tr>
+  {% endfor %}
+    </body>
+</table>
+<div style="float:right">
+  {% if projets is defined %}
+    <a href="{{ path('projet_source', {'id': projets.id}) }}" class="btn btn-success">Créer une source</a>
+  {% endif %} 
+  <a href="#" class="btn btn-warning">Upload une source</a>
+</div>
+</div>
+{% endblock %}

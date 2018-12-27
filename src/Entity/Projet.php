@@ -110,9 +110,9 @@ class Projet
         if ($this->source->contains($source)) {
             $this->source->removeElement($source);
             // set the owning side to null (unless already changed)
-            if ($source->getSource() === $this) {
+            
                 $source->setSource(null);
-            }
+            
         }
 
         return $this;

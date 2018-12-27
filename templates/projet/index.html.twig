@@ -21,7 +21,7 @@
     <tbody>
   {% for projet in projets %}
   <tr>
-  <td> <a href="{{ path('projet_source', {'id': projet.id}) }}"> {{ projet.Name()}}</a></td>
+  <td> <a href="{{ path('source_all', {'id': projet.id}) }}"> {{ projet.Name()}}</a></td>
   <td> {{projet.Langue}} </td>
   <td> {{ projet.getUserName() }} </td>
   <td> <a href="{{ path('projet_edit', {'id': projet.id}) }}" class="btn btn-primary">Edit</a></td>

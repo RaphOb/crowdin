@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,9 +32,19 @@ class Source
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Projet", inversedBy="source")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotNull()
+     * 
      */
     protected $projet;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Langue", mappedBy="drap")
+     */
+    private $source;
+
+    public function __construct()
+    {
+        $this->source = new ArrayCollection();
+    }
 
 
 
@@ -86,6 +97,26 @@ class Source
     public function setSource(?Projet $source): self
     {
         $this->source = $source;
+
+        return $this;
+    }
+
+    public function addSource(Langue $source): self
+    {
+        if (!$this->source->contains($source)) {
+            $this->source[] = $source;
+            $source->addDrap($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSource(Langue $source): self
+    {
+        if ($this->source->contains($source)) {
+            $this->source->removeElement($source);
+            $source->removeDrap($this);
+        }
 
         return $this;
     }
