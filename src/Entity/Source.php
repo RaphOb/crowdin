@@ -36,9 +36,7 @@ class Source
      */
     protected $projet;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Langue", mappedBy="drap")
-     */
+ 
     private $source;
 
     public function __construct()
@@ -101,23 +99,4 @@ class Source
         return $this;
     }
 
-    public function addSource(Langue $source): self
-    {
-        if (!$this->source->contains($source)) {
-            $this->source[] = $source;
-            $source->addDrap($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSource(Langue $source): self
-    {
-        if ($this->source->contains($source)) {
-            $this->source->removeElement($source);
-            $source->removeDrap($this);
-        }
-
-        return $this;
-    }
 }

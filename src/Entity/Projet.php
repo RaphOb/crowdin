@@ -28,10 +28,7 @@ class Projet
      */
     private $User_name;
 
-    /**
-     * @ORM\Column(type="string", length=68)
-     */
-    private $Langue;
+    
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Source", mappedBy="projet", cascade="all", orphanRemoval=true)
@@ -39,9 +36,15 @@ class Projet
      */
     protected $source;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Langues", mappedBy="LangueProjet")
+     */
+    private $langue;
+
     public function __construct()
     {
         $this->source = new ArrayCollection();
+        $this->langue = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,18 +72,6 @@ class Projet
     public function setUserName(string $User_name): self
     {
         $this->User_name = $User_name;
-
-        return $this;
-    }
-
-    public function getLangue(): ?string
-    {
-        return $this->Langue;
-    }
-
-    public function setLangue(string $Langue): self
-    {
-        $this->Langue = $Langue;
 
         return $this;
     }
@@ -113,6 +104,34 @@ class Projet
             
                 $source->setSource(null);
             
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Langues[]
+     */
+    public function getLangue(): Collection
+    {
+        return $this->langue;
+    }
+
+    public function addLangue(Langues $langue): self
+    {
+        if (!$this->langue->contains($langue)) {
+            $this->langue[] = $langue;
+            $langue->addLangueProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLangue(Langues $langue): self
+    {
+        if ($this->langue->contains($langue)) {
+            $this->langue->removeElement($langue);
+            $langue->removeLangueProjet($this);
         }
 
         return $this;

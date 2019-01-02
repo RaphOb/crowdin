@@ -62,15 +62,7 @@ class User implements UserInterface
      */
     private $graphic;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Langue", mappedBy="usLangue")
-     */
-    private $langues;
-
-    public function __construct()
-    {
-        $this->langues = new ArrayCollection();
-    }
+ 
 
     public function getId(): ?int
     {
@@ -204,31 +196,5 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Langue[]
-     */
-    public function getLangues(): Collection
-    {
-        return $this->langues;
-    }
-
-    public function addLangue(Langue $langue): self
-    {
-        if (!$this->langues->contains($langue)) {
-            $this->langues[] = $langue;
-            $langue->addUsLangue($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLangue(Langue $langue): self
-    {
-        if ($this->langues->contains($langue)) {
-            $this->langues->removeElement($langue);
-            $langue->removeUsLangue($this);
-        }
-
-        return $this;
-    }
+    
 }

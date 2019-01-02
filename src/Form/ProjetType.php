@@ -15,8 +15,7 @@ class ProjetType extends AbstractType
         $builder
             ->add('Name')
             ->add('User_name')
-            ->add('Langue')
-            
+            ->add('langue')
         ;
     }
 

@@ -8,14 +8,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181204095228 extends AbstractMigration
+final class Version20190102085344 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user ADD language VARCHAR(68) DEFAULT NULL, ADD description LONGTEXT DEFAULT NULL, ADD graphic LONGTEXT DEFAULT NULL');
+        $this->addSql('ALTER TABLE projet DROP langue');
     }
 
     public function down(Schema $schema) : void
@@ -23,6 +23,6 @@ final class Version20181204095228 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user DROP language, DROP description, DROP graphic');
+        $this->addSql('ALTER TABLE projet ADD langue VARCHAR(68) NOT NULL COLLATE utf8mb4_unicode_ci');
     }
 }
