@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\AbstractType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,7 +40,8 @@ class Projet
     protected $source;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Langues", mappedBy="LangueProjet")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Langues", mappedBy="LangueProjet", cascade={"persist"})
+     * @ORM\JoinTable(name="langues_projet")
      */
     private $langue;
 
@@ -117,6 +121,11 @@ class Projet
         return $this->langue;
     }
 
+    public function __toString()
+    {
+        return $this->langue();
+    }
+
     public function addLangue(Langues $langue): self
     {
         if (!$this->langue->contains($langue)) {
@@ -136,4 +145,6 @@ class Projet
 
         return $this;
     }
+    
+    
 }

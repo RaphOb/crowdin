@@ -4,12 +4,15 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\AbstractType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LanguesRepository")
  */
-class Langues
+class Langues extends AbstractType
 {
     /**
      * @ORM\Id()
@@ -24,7 +27,7 @@ class Langues
     private $langue;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Projet", inversedBy="langue")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Projet", inversedBy="langue", cascade={"persist"})
      */
     private $LangueProjet;
 

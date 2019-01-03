@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Projet;
 use App\Entity\Source;
+use App\Entity\Langues;
 use App\Controller;
 
 use App\Repository\ProjetRepository;
@@ -34,6 +35,7 @@ class ProjetController extends AbstractController
     {
         //$entityManager = $this->getDoctrine()->getManager();
         $projet = new Projet();
+        $langue = new Langues();
         $form_create = $this->createForm(ProjetType::class, $projet);
         $form_create->handleRequest($request);
         
