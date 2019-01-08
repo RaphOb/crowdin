@@ -40,10 +40,15 @@ class Projet
     protected $source;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Langues", mappedBy="LangueProjet", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Langues", inversedBy="LangueProjet", cascade={"persist"})
      * @ORM\JoinTable(name="langues_projet")
      */
     private $langue;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projet")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -121,9 +126,13 @@ class Projet
         return $this->langue;
     }
 
+    /**
+     * toString
+     * @return string
+     */
     public function __toString()
     {
-        return $this->langue();
+        return $this->getLangue();
     }
 
     public function addLangue(Langues $langue): self
@@ -142,6 +151,18 @@ class Projet
             $this->langue->removeElement($langue);
             $langue->removeLangueProjet($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

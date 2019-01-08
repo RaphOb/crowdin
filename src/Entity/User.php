@@ -62,6 +62,16 @@ class User implements UserInterface
      */
     private $graphic;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="user")
+     */
+    private $projet;
+
+    public function __construct()
+    {
+        $this->projet = new ArrayCollection();
+    }
+
  
 
     public function getId(): ?int
@@ -192,6 +202,37 @@ class User implements UserInterface
     public function setGraphic(?string $graphic): self
     {
         $this->graphic = $graphic;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getProjet(): Collection
+    {
+        return $this->projet;
+    }
+
+    public function addProjet(Projet $projet): self
+    {
+        if (!$this->projet->contains($projet)) {
+            $this->projet[] = $projet;
+            $projet->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjet(Projet $projet): self
+    {
+        if ($this->projet->contains($projet)) {
+            $this->projet->removeElement($projet);
+            // set the owning side to null (unless already changed)
+            if ($projet->getUser() === $this) {
+                $projet->setUser(null);
+            }
+        }
 
         return $this;
     }

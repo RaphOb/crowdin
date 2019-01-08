@@ -1,28 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Gerer les Sources{% endblock %}
+{% block title %} Gerer les traduction{% endblock %}
 
 {% block body %}
 <style>
     
 </style>
 <div class="container mt-4">
-    <h1> gerer les sources</h1>
+    <h1> gerer les traductions</h1>
     <table class="table table-striped">
     <thead>
     <tr>
         <th> Titre</th>
-        <th>Source</th>
+        <th>traduction</th>
        
     </tr>
     </thead>
     <tbody>
-  {% for source in projets.source %}
+  {% for  %}
   <tr>
-  <td> source</td>
-  <td> {{source.title}} </td>
-  <td> {{ source.sourcefield }}</td>
-  <td> <a href="{{ path('source_traduct', {'id': source.id}) }}" class="btn btn-primary">Traduire</a></td>
+  <td> traduction</td>
+  <td> {{traduct.langue}} </td>
+  <td> {{ traduct.traductfield }}</td>
+  <td> <a href="#" class="btn btn-primary">edit</a></td>
   <td> <a href="{{ path('source_del', {'id': projets.id, 'sId': source.id}) }}" class="btn btn-danger" onCLick="return confirm('are you sure?')">Delet</a></td>
   
   </tr>

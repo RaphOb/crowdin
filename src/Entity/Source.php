@@ -39,9 +39,15 @@ class Source
  
     private $source;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Traduct", mappedBy="source")
+     */
+    private $traduct;
+
     public function __construct()
     {
         $this->source = new ArrayCollection();
+        $this->traduct = new ArrayCollection();
     }
 
 
@@ -95,6 +101,37 @@ class Source
     public function setSource(?Projet $source): self
     {
         $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Traduct[]
+     */
+    public function getTraduct(): Collection
+    {
+        return $this->traduct;
+    }
+
+    public function addTraduct(Traduct $traduct): self
+    {
+        if (!$this->traduct->contains($traduct)) {
+            $this->traduct[] = $traduct;
+            $traduct->setSource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraduct(Traduct $traduct): self
+    {
+        if ($this->traduct->contains($traduct)) {
+            $this->traduct->removeElement($traduct);
+            // set the owning side to null (unless already changed)
+            if ($traduct->getSource() === $this) {
+                $traduct->setSource(null);
+            }
+        }
 
         return $this;
     }

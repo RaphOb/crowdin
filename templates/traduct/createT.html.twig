@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% form_theme traduct_form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+<div class="form" >
+ {{ form_start(traduct_form) }}
+        {{ form_row(traduct_form.langues) }}
+       {{ form_row(traduct_form.traductfield) }}
+     <button type="submit">Rajouter la traduction</button>     
+         {{ form_end(traduct_form) }}
+</div>
+{% endblock %}

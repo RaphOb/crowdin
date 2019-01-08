@@ -27,13 +27,19 @@ class Langues extends AbstractType
     private $langue;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Projet", inversedBy="langue", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Projet", mappedBy="langue", cascade={"persist"})
      */
     private $LangueProjet;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Traduct", mappedBy="langues", cascade={"persist"})
+     */
+    private $traduct;
 
     public function __construct()
     {
         $this->LangueProjet = new ArrayCollection();
+        $this->traduct = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -42,6 +48,15 @@ class Langues extends AbstractType
     }
 
     public function getLangue(): ?string
+    {
+        return $this->langue;
+    }
+
+    /**
+     * toString
+     * @return string
+     */
+    public function __toString()
     {
         return $this->langue;
     }
@@ -74,6 +89,32 @@ class Langues extends AbstractType
     {
         if ($this->LangueProjet->contains($langueProjet)) {
             $this->LangueProjet->removeElement($langueProjet);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Traduct[]
+     */
+    public function getTraduct(): Collection
+    {
+        return $this->traduct;
+    }
+
+    public function addTraduct(Traduct $traduct): self
+    {
+        if (!$this->traduct->contains($traduct)) {
+            $this->traduct[] = $traduct;
+        }
+
+        return $this;
+    }
+
+    public function removeTraduct(Traduct $traduct): self
+    {
+        if ($this->traduct->contains($traduct)) {
+            $this->traduct->removeElement($traduct);
         }
 
         return $this;

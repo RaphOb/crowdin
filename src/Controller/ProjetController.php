@@ -6,11 +6,13 @@ use App\Entity\Projet;
 use App\Entity\Source;
 use App\Entity\Langues;
 use App\Controller;
+use App\Entity\Traduct;
 
 use App\Repository\ProjetRepository;
 use App\Repository\SourceRepository;
 use App\Form\ProjetType;
 use App\Form\SourceType;
+use App\Form\TraductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,11 +37,14 @@ class ProjetController extends AbstractController
     {
         //$entityManager = $this->getDoctrine()->getManager();
         $projet = new Projet();
-        $langue = new Langues();
         $form_create = $this->createForm(ProjetType::class, $projet);
         $form_create->handleRequest($request);
         
         if($form_create->isSubmitted() && $form_create->isValid()) {
+            $user = $this->getUser();
+           
+            $projet->setUser($user);
+            $projet->setUsername($user->getUsername());
             $this->entityManager->persist($projet);
             $this->entityManager->flush();
             return $this->redirectToRoute('projet_all');
@@ -53,11 +58,26 @@ class ProjetController extends AbstractController
      */
     public function index1()
     {
-        $projet = $this->getDoctrine()
+        $user = $this->getUser();
+        $id = $user->getId();
+        $repo = $this->getDoctrine()->getRepository(Projet::class);
+        $projets = $repo->findByUser($id);
+     
+        //$repo_langues = $this->getDoctrine()->getRepository(Langues::class);
+        //$project_langues = $repo->findByLangue(getLangueProjet());
+
+       // $projet = $user->getProjet();
+       // $projet->findByUser
+        /*$projet = $this->getDoctrine()
             ->getRepository(Projet::class)
-            ->findAll();
+            ->findAll();*/
+            //->findOneBy(array(
+             //   'user'=> $id,
+            //));
+            
             return $this->render('/projet/index.html.twig',
-            [ 'projets'=> $projet]
+            [ 'projets'=> $projets]
+            //['langues' => $project_langues]
         );
     }
 
@@ -195,6 +215,32 @@ class ProjetController extends AbstractController
         $projet->removeSource($source);
         $this->entityManager->flush();
         return $this->redirectToRoute('source_all', array('id'=>$projet->getId()));
+    }
+
+    /**
+     * @route("/source/{id}/traduct", name="source_traduct")
+     * @param $source
+     */
+    public function addTraduct($id, Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $traduct = new Traduct();
+        $source = $entityManager->getRepository(Source::class)->find($id);
+        $traduct_form = $this->createForm(TraductType::class, $traduct);
+        $traduct_form->handleRequest($request);
+        
+        if($traduct_form->isSubmitted() && $traduct_form->isValid()) {
+            $source->addTraduct($traduct);
+            $this->entityManager->persist($traduct);
+            $this->entityManager->persist($source);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('source_all', array('id'=>$source->getId()));
+        }
+        return $this->render('traduct/createT.html.twig', [
+            'traduct_form'=> $traduct_form->createView(),
+            'traducts'=>$traduct,
+            
+        ]);
     }
 
 }
